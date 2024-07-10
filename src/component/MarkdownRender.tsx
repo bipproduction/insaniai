@@ -17,6 +17,9 @@ export function MarkdownRender({ markdown }: { markdown: string }) {
 
           return !inline && match ? (
             <SyntaxHighlighter
+              customStyle={{
+                overflow: "auto"
+              }}
               style={dracula}
               PreTag="div"
               language={match[1]}
@@ -26,13 +29,6 @@ export function MarkdownRender({ markdown }: { markdown: string }) {
             </SyntaxHighlighter>
           ) : (
             <code
-              style={{
-                wordBreak: "break-all",
-                whiteSpace: "pre-wrap",
-                wordWrap: "break-word",
-                overflowWrap: "anywhere",
-                textWrap: "wrap",
-              }}
               className={className}
               {...props}
             >

@@ -5,8 +5,16 @@ body {
 }
 
 .p-0 {
+  position: relative;
   padding: 0;
   margin: 0;
+  word-break: break-all;
+  word-wrap: break-word;
+  text-wrap: wrap;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+  overflow: auto;
 }
 
 /* typing indicator */

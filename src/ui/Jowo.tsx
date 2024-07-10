@@ -232,24 +232,28 @@ export function Jowo({ apiKey }: { apiKey: string }) {
             </Flex>
           </Flex>
           <Stack bg={colors["bg-body"]} pos={"relative"} flex={1} gap={0}>
-            {listChat.filter((chat) => chat.role !== "system").map((chat, index) => (
-              <Stack key={index} gap={0}>
-                <NavLink
-                  label={
-                    <Flex align={"center"} gap={"md"}>
-                      <Avatar>{chat.role === "user" ? "Me" : "AI"}</Avatar>
-                      <Stack gap={0}>
-                        <Text>{chat.role === "user" ? "Me" : "Wong Jowo"}</Text>
-                        <Text c={"gray"} fz={"sm"}>
-                          {chat.content.substring(0, 30)}
-                        </Text>
-                      </Stack>
-                    </Flex>
-                  }
-                />
-                <Divider w={"100%"} />
-              </Stack>
-            ))}
+            {listChat
+              .filter((chat) => chat.role !== "system")
+              .map((chat, index) => (
+                <Stack key={index} gap={0}>
+                  <NavLink
+                    label={
+                      <Flex align={"center"} gap={"md"}>
+                        <Avatar>{chat.role === "user" ? "Me" : "AI"}</Avatar>
+                        <Stack gap={0}>
+                          <Text>
+                            {chat.role === "user" ? "Me" : "Wong Jowo"}
+                          </Text>
+                          <Text c={"gray"} fz={"sm"}>
+                            {chat.content.substring(0, 30)}
+                          </Text>
+                        </Stack>
+                      </Flex>
+                    }
+                  />
+                  <Divider w={"100%"} />
+                </Stack>
+              ))}
           </Stack>
         </Stack>
         <Stack flex={1} gap={"xs"} pos={"relative"} c={colors["chat-text"]}>
@@ -303,11 +307,19 @@ export function Jowo({ apiKey }: { apiKey: string }) {
                       }
                       style={{
                         maxWidth: "60%",
+                        // overflow: "scroll",
                         borderRadius: "20px",
                         boxShadow: "0 1px 1px rgba(0,0,0,0.06)",
+                        wordBreak: "break-word",
+                        overflowWrap: "break-word",
+                        whiteSpace: "pre-wrap",
+                        wordWrap: "break-word",
+                        hyphens: "auto",
                       }}
                     >
-                      <Flex align={"start"}>
+                      <Flex
+                        align={"start"}
+                      >
                         <MarkdownRender markdown={v.content} />
                         {v.role === "user" && (
                           <Box p={"xs"}>
