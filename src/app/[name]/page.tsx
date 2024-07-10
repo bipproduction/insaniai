@@ -2,8 +2,7 @@ import { Bali } from "@/ui/Bali";
 import { Chat } from "@/ui/Chat";
 import { Jowo } from "@/ui/Jowo";
 import { Suspense } from "react";
-const apikey = process.env.OPENAI_API_KEY;
-
+const apikey = process.env.OPENAI_API_KEY || "";
 const listPage = [
   {
     name: "chat",
