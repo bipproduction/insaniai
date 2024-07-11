@@ -1,4 +1,5 @@
 "use client";
+import { AppDotMenu } from "@/component/AppDotMenu";
 import { MarkdownRender } from "@/component/MarkdownRender";
 import {
   ActionIcon,
@@ -290,6 +291,7 @@ export function Jowo({ apiKey }: { apiKey: string }) {
               <ActionIcon onClick={cleanHistory} radius={100} variant="subtle">
                 <MdClearAll color="gray" size={"2rem"} />
               </ActionIcon>
+              <AppDotMenu />
             </Flex>
           </Flex>
           <Stack gap={0}>
@@ -326,24 +328,6 @@ export function Jowo({ apiKey }: { apiKey: string }) {
                       }}
                     >
                       <MarkdownRender markdown={v.content} />
-                      {/* <MarkdownRender markdown={v.content} /> */}
-                      {/* <Flex
-                        align={"start"}
-                        flex={1}
-                      >
-                        <MarkdownRender markdown={v.content} />
-                        {v.role === "user" && (
-                          <Box p={"xs"}>
-                            <MdArrowBackIos
-                              size={"1rem"}
-                              style={{
-                                rotate: "270deg",
-                              }}
-                              color="gray"
-                            />
-                          </Box>
-                        )}
-                      </Flex> */}
                     </Paper>
                   </Flex>
                 ))}

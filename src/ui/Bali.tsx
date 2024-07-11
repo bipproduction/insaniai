@@ -1,4 +1,5 @@
 "use client";
+import { AppDotMenu } from "@/component/AppDotMenu";
 import { MarkdownRender } from "@/component/MarkdownRender";
 import {
   ActionIcon,
@@ -283,6 +284,7 @@ export function Bali({ apiKey }: { apiKey: string }) {
               <ActionIcon onClick={cleanHistory} radius={100} variant="subtle">
                 <MdClearAll color="gray" size={"2rem"} />
               </ActionIcon>
+              <AppDotMenu />
             </Flex>
           </Flex>
           <Stack gap={0}>
