@@ -5,7 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
   engineType = "binary"
 }
 
@@ -14,4 +14,57 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model App {
+  id            String          @id @default(cuid())
+  name          String
+  stream        Boolean         @default(false)
+  active        Boolean         @default(true)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  PromptEnginer PromptEnginer[]
+  Chat          Chat[]
+}
 
+model PromptEnginer {
+  id        String   @id @default(cuid())
+  role      String
+  content   String   @db.Text
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  App       App?     @relation(fields: [appId], references: [id])
+  appId     String?
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String   @unique
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Chat      Chat[]
+}
+
+model Chat {
+  id          String        @id @default(cuid())
+  name        String
+  active      Boolean       @default(true)
+  User        User?         @relation(fields: [userId], references: [id])
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  userId      String?
+  ChatHistory ChatHistory[]
+  App         App?          @relation(fields: [appId], references: [id])
+  appId       String?
+}
+
+model ChatHistory {
+  id        String   @id @default(cuid())
+  Chat      Chat?    @relation(fields: [chatId], references: [id])
+  role      String
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  chatId    String?
+}

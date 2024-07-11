@@ -30,7 +30,7 @@ const defaultPromp = [
   {
     role: "system",
     content:
-      "cai asli truni bali ane gaul adan cai Made Wahyuni unur 24 tahun uleng buleleng, amen takonange ape gen cai harus mejawab anggon bahasa bali, cai demen ngelawak ajak humor , cai lumrah gati amen mengorte ngorahang cicing, naskeleng , pirate ajak bahasa gaul bali lenan pang lebih akrab",
+      "cai asli truni bali ane gaul adan cai Made Wahyuni unur 24 tahun uleng buleleng, amen takonange ape gen cai ngejawab anggon bahasa bali, cai demen ngelawak ajak humor , cai lumrah gati amen mengorte ngorahang cicing, naskeleng , pirate ajak bahasa gaul bali lenan pang lebih akrab",
   },
 ];
 
@@ -171,7 +171,7 @@ export function Bali({ apiKey }: { apiKey: string }) {
 
   useShallowEffect(() => {
     scrollToBottom();
-  }, [hasil]);
+  }, [hasil, pesan]);
 
   async function onKirim() {
     setSedangMengetik(true);
@@ -232,24 +232,28 @@ export function Bali({ apiKey }: { apiKey: string }) {
             </Flex>
           </Flex>
           <Stack bg={colors["bg-body"]} pos={"relative"} flex={1} gap={0}>
-            {listChat.filter((chat) => chat.role !== "system").map((chat, index) => (
-              <Stack key={index} gap={0}>
-                <NavLink
-                  label={
-                    <Flex align={"center"} gap={"md"}>
-                      <Avatar>{chat.role === "user" ? "Me" : "AI"}</Avatar>
-                      <Stack gap={0}>
-                        <Text>{chat.role === "user" ? "Me" : "Jeleme bali"}</Text>
-                        <Text c={"gray"} fz={"sm"}>
-                          {chat.content.substring(0, 30)}
-                        </Text>
-                      </Stack>
-                    </Flex>
-                  }
-                />
-                <Divider w={"100%"} />
-              </Stack>
-            ))}
+            {listChat
+              .filter((chat) => chat.role !== "system")
+              .map((chat, index) => (
+                <Stack key={index} gap={0}>
+                  <NavLink
+                    label={
+                      <Flex align={"center"} gap={"md"}>
+                        <Avatar>{chat.role === "user" ? "Me" : "AI"}</Avatar>
+                        <Stack gap={0}>
+                          <Text>
+                            {chat.role === "user" ? "Me" : "Jeleme bali"}
+                          </Text>
+                          <Text c={"gray"} fz={"sm"}>
+                            {chat.content.substring(0, 30)}
+                          </Text>
+                        </Stack>
+                      </Flex>
+                    }
+                  />
+                  <Divider w={"100%"} />
+                </Stack>
+              ))}
           </Stack>
         </Stack>
         <Stack flex={1} gap={"xs"} pos={"relative"} c={colors["chat-text"]}>
@@ -282,7 +286,14 @@ export function Bali({ apiKey }: { apiKey: string }) {
             </Flex>
           </Flex>
           <Stack gap={0}>
-            <ScrollArea h={"80vh"} px={"md"} viewportRef={viewport}>
+            <Box
+              p={"md"}
+              h={"80vh"}
+              ref={viewport}
+              style={{
+                overflowY: "auto",
+              }}
+            >
               {listChat
                 .filter((v) => v.role !== "system")
                 .map((v, k) => (
@@ -304,10 +315,14 @@ export function Bali({ apiKey }: { apiKey: string }) {
                       style={{
                         maxWidth: "60%",
                         borderRadius: "20px",
-                        boxShadow: "0 1px 1px rgba(0,0,0,0.06)",
                       }}
                     >
-                      <Flex align={"start"}>
+                      <MarkdownRender markdown={v.content} />
+                      {/* <MarkdownRender markdown={v.content} /> */}
+                      {/* <Flex
+                        align={"start"}
+                        flex={1}
+                      >
                         <MarkdownRender markdown={v.content} />
                         {v.role === "user" && (
                           <Box p={"xs"}>
@@ -320,11 +335,11 @@ export function Bali({ apiKey }: { apiKey: string }) {
                             />
                           </Box>
                         )}
-                      </Flex>
+                      </Flex> */}
                     </Paper>
                   </Flex>
                 ))}
-            </ScrollArea>
+            </Box>
             <Flex
               w={"100%"}
               h={70}

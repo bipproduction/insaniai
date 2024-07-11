@@ -1,16 +1,36 @@
-import { chatPost } from "./api/post/chatPost";
+import { user } from "./api/get/user";
+import { login } from "./api/post/login";
+import { register } from "./api/post/register";
 
-export async function apiHandler(req: Request): Promise<Response> {
-  const { searchParams } = new URL(req.url);
-  const path = searchParams.get("path");
+const apiKey = process.env.OPENAI_API_KEY || "";
 
-  try {
-    return chatPost(req);
-  } catch (error: any) {
-    console.error("Error:", error);
-    return new Response(
-      JSON.stringify({ message: error.message || "Internal Server Error" }),
-      { status: 500 }
-    );
+const listApi = [
+  {
+    path: "register",
+    method: "POST",
+    lib: register,
+  },
+  {
+    path: "login",
+    method: "POST",
+    lib: login,
+  },
+  {
+    path: "user",
+    method: "GET",
+    lib: user,
+  },
+];
+export async function apiHandler(
+  req: Request,
+  path: string
+): Promise<Response> {
+  const method = req.method;
+  const api = listApi.find(
+    (item) => item.path === path && item.method === method
+  );
+  if (api) {
+    return api.lib(req);
   }
+  return Response.json({ message: "404" }, { status: 404 });
 }

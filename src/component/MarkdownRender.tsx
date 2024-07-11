@@ -8,7 +8,7 @@ import remarkGfm from "remark-gfm";
 export function MarkdownRender({ markdown }: { markdown: string }) {
   return (
     <ReactMarkdown
-      className={"p-0"}
+      className={"markdown-render"}
       remarkPlugins={[remarkGfm, remarkBreaks]}
       rehypePlugins={[rehypeRaw]}
       components={{
@@ -17,9 +17,6 @@ export function MarkdownRender({ markdown }: { markdown: string }) {
 
           return !inline && match ? (
             <SyntaxHighlighter
-              customStyle={{
-                overflow: "auto"
-              }}
               style={dracula}
               PreTag="div"
               language={match[1]}
@@ -28,10 +25,7 @@ export function MarkdownRender({ markdown }: { markdown: string }) {
               {String(children).replace(/\n$/, "")}
             </SyntaxHighlighter>
           ) : (
-            <code
-              className={className}
-              {...props}
-            >
+            <code className={className} {...props}>
               {children}
             </code>
           );

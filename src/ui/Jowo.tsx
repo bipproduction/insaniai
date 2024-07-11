@@ -6,6 +6,7 @@ import {
   Box,
   Divider,
   Flex,
+  Group,
   NavLink,
   Paper,
   ScrollArea,
@@ -171,11 +172,10 @@ export function Jowo({ apiKey }: { apiKey: string }) {
 
   useShallowEffect(() => {
     scrollToBottom();
-  }, [hasil]);
+  }, [hasil, pesan]);
 
   async function onKirim() {
     setSedangMengetik(true);
-    console.log("Pesan:", pesan);
     setPesan("");
     await chatgpt(pesan, apiKey, (message) => {
       setHasil((prev) => prev + message);
@@ -202,8 +202,8 @@ export function Jowo({ apiKey }: { apiKey: string }) {
 
   return (
     <Stack h={"100%"} pos={"fixed"} w={"100%"} bg={"#e5ddd5"}>
-      <Flex w={"100%"} h={"100%"}>
-        <Stack w={400} gap={0} visibleFrom="sm">
+      <Flex miw={"100%"} h={"100%"} pos={"fixed"}>
+        <Stack miw={400} gap={0} visibleFrom="sm">
           <Flex
             w={"100%"}
             h={70}
@@ -256,7 +256,14 @@ export function Jowo({ apiKey }: { apiKey: string }) {
               ))}
           </Stack>
         </Stack>
-        <Stack flex={1} gap={"xs"} pos={"relative"} c={colors["chat-text"]}>
+        <Flex
+          w={"500"}
+          direction={"column"}
+          flex={1}
+          gap={"xs"}
+          pos={"relative"}
+          c={colors["chat-text"]}
+        >
           <Flex
             p={"md"}
             bg={colors["bg-header"]}
@@ -286,7 +293,14 @@ export function Jowo({ apiKey }: { apiKey: string }) {
             </Flex>
           </Flex>
           <Stack gap={0}>
-            <ScrollArea h={"80vh"} px={"md"} viewportRef={viewport}>
+            <Box
+              p={"md"}
+              h={"80vh"}
+              ref={viewport}
+              style={{
+                overflowY: "auto",
+              }}
+            >
               {listChat
                 .filter((v) => v.role !== "system")
                 .map((v, k) => (
@@ -307,18 +321,14 @@ export function Jowo({ apiKey }: { apiKey: string }) {
                       }
                       style={{
                         maxWidth: "60%",
-                        // overflow: "scroll",
                         borderRadius: "20px",
-                        boxShadow: "0 1px 1px rgba(0,0,0,0.06)",
-                        wordBreak: "break-word",
-                        overflowWrap: "break-word",
-                        whiteSpace: "pre-wrap",
-                        wordWrap: "break-word",
-                        hyphens: "auto",
                       }}
                     >
-                      <Flex
+                      <MarkdownRender markdown={v.content} />
+                      {/* <MarkdownRender markdown={v.content} /> */}
+                      {/* <Flex
                         align={"start"}
+                        flex={1}
                       >
                         <MarkdownRender markdown={v.content} />
                         {v.role === "user" && (
@@ -332,11 +342,11 @@ export function Jowo({ apiKey }: { apiKey: string }) {
                             />
                           </Box>
                         )}
-                      </Flex>
+                      </Flex> */}
                     </Paper>
                   </Flex>
                 ))}
-            </ScrollArea>
+            </Box>
             <Flex
               w={"100%"}
               h={70}
@@ -375,7 +385,7 @@ export function Jowo({ apiKey }: { apiKey: string }) {
               </ActionIcon>
             </Flex>
           </Stack>
-        </Stack>
+        </Flex>
       </Flex>
     </Stack>
   );
