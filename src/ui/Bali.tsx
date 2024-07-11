@@ -313,7 +313,7 @@ export function Bali({ apiKey }: { apiKey: string }) {
                           : colors["bg-booble-you"]
                       }
                       style={{
-                        maxWidth: "60%",
+                        maxWidth: "80%",
                         borderRadius: "20px",
                       }}
                     >

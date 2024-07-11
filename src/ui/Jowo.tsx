@@ -297,6 +297,7 @@ export function Jowo({ apiKey }: { apiKey: string }) {
               p={"md"}
               h={"80vh"}
               ref={viewport}
+              mb={"sm"}
               style={{
                 overflowY: "auto",
               }}
@@ -320,7 +321,7 @@ export function Jowo({ apiKey }: { apiKey: string }) {
                           : colors["bg-booble-you"]
                       }
                       style={{
-                        maxWidth: "60%",
+                        maxWidth: "80%",
                         borderRadius: "20px",
                       }}
                     >
