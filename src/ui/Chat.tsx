@@ -1,4 +1,5 @@
 "use client";
+import { AppDotMenu } from "@/component/AppDotMenu";
 import { MarkdownRender } from "@/component/MarkdownRender";
 import { completionHandler } from "@/lib/ai/completion";
 import { useScrollBottom } from "@/lib/ai/useScrollBottom";
@@ -134,6 +135,7 @@ export function Chat({ apiKey }: { apiKey: string }) {
               <ActionIcon onClick={onCleanAll} variant="transparent">
                 <MdClearAll size={"1.5rem"} />
               </ActionIcon>
+              <AppDotMenu />
             </Flex>
           </Flex>
           <Stack

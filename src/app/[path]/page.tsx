@@ -1,5 +1,6 @@
 import { Bali } from "@/ui/Bali";
 import { Chat } from "@/ui/Chat";
+import { Emo } from "@/ui/Emo";
 import { Jowo } from "@/ui/Jowo";
 import { Login } from "@/ui/page/Login";
 import { Register } from "@/ui/page/Register";
@@ -25,6 +26,10 @@ const listPage = [
   {
     path: "register",
     lib: Register,
+  },
+  {
+    path: "emo",
+    lib: Emo,
   },
 ];
 export default function Page({ params }: { params: { path: string } }) {
