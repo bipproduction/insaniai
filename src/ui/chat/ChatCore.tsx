@@ -5,7 +5,6 @@ import { completionHandler } from "@/lib/ai/completion";
 import {
   ActionIcon,
   Avatar,
-  BackgroundImage,
   Box,
   Flex,
   Grid,
@@ -13,11 +12,11 @@ import {
   Paper,
   Stack,
   Text,
-  TextInput,
+  TextInput
 } from "@mantine/core";
-import { useLocalStorage, useShallowEffect } from "@mantine/hooks";
+import { useLocalStorage } from "@mantine/hooks";
 import _ from "lodash";
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   MdAddBox,
   MdClearAll,
@@ -110,16 +109,16 @@ export function ChatCore({
   };
 
   return (
-    <Grid h={"100vh"} w={"100%"} pos={"fixed"} gutter={0}>
-      <Grid.Col w={400} span={"content"} visibleFrom="md">
-        <Box pos={"relative"}>
+    <Grid w={"100%"} gutter={0}>
+      <Grid.Col w={400} span={"content"} visibleFrom="md" >
+        <Flex direction={"column"} h={"100vh"}>
           <HeaderKiri />
           <Stack
+            flex={1}
             p={"md"}
             gap={0}
-            h={"80vh"}
             style={{
-              overflowX: "scroll",
+              overflowY: "scroll",
             }}
           >
             {listChat
@@ -145,6 +144,8 @@ export function ChatCore({
               ))}
           </Stack>
           <Box
+            pos={"sticky"}
+            bottom={0}
             bg={colors["bg-header"]}
             h={120}
             p={"md"}
@@ -154,21 +155,25 @@ export function ChatCore({
           >
             BIP Studio <sup>wibu@2024</sup>
           </Box>
-        </Box>
+        </Flex>
       </Grid.Col>
-      <Grid.Col span={"auto"}>
-        <BackgroundImage
-          bg={colors["bg-chat"]}
-          src="/assets/bg.png"
-          h={"100vh"}
-          pos={"relative"}
+      <Grid.Col span={"auto"} bg={colors["bg-chat"]} pos={"relative"} style={{
+        overflowX: "auto",
+      }}>
+        <Flex direction={"column"} h={"100vh"} gap={0}
         >
-          <Stack gap={0}>
+          <Box pos={"sticky"} top={0} style={{ zIndex: 10 }}>
             <HeaderKanan />
+          </Box>
+          <Stack
+            flex={1}
+            style={{
+              overflowY: "scroll",
+            }}>
             <Content viewport={viewport} />
           </Stack>
           <Flex
-            pos={"absolute"}
+            pos={"sticky"}
             bottom={0}
             w={"100%"}
             bg={colors["bg-header"]}
@@ -194,6 +199,7 @@ export function ChatCore({
               radius={"sm"}
             />
             <ActionIcon
+              loading={sedangMengetik}
               variant="transparent"
               size={"lg"}
               onClick={onKirim}
@@ -202,7 +208,7 @@ export function ChatCore({
               <MdSend color="gray" size={"2rem"} />
             </ActionIcon>
           </Flex>
-        </BackgroundImage>
+        </Flex>
       </Grid.Col>
     </Grid>
   );
@@ -322,6 +328,7 @@ export function ChatCore({
                 style={{
                   maxWidth: "80%",
                   borderRadius: "20px",
+                  overflow: "auto"
                 }}
               >
                 <MarkdownRender markdown={v.content} />

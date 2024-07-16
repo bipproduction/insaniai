@@ -4,9 +4,12 @@ body {
   padding: 0;
 }
 
-/* .markdown-render {
+.markdown-render {
   overflow: auto;
-} */
+  word-wrap: break-word;
+  word-break: break-word;
+  
+}
 
 /* typing indicator */
 /* Add this to your global CSS or the relevant CSS file */

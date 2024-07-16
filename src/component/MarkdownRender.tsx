@@ -18,6 +18,10 @@ export function MarkdownRender({ markdown }: { markdown: string }) {
           return !inline && match ? (
             <SyntaxHighlighter
               style={dracula}
+              customStyle={{
+                textWrap: "wrap",
+                wordWrap: "break-word"
+              }}
               PreTag="div"
               language={match[1]}
               {...props}

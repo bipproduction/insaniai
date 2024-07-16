@@ -18,8 +18,14 @@ const listFiture = [
   {
     id: "3",
     name: "chat",
-    desc: "chat dengan bali",
+    desc: "chat dengan chat",
     path: "/chat",
+  },
+  {
+    id: "4",
+    name: "madura",
+    desc: "chat dengan madura",
+    path: "/madura",
   },
 ];
 

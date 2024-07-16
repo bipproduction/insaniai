@@ -20,6 +20,9 @@ export function AppDotMenu() {
         <Menu.Item component={Link} href={"/jowo"}>
           Jowo
         </Menu.Item>
+        <Menu.Item component={Link} href={"/madura"}>
+          Madura
+        </Menu.Item>
       </Menu.Dropdown>
     </Menu>
   );
